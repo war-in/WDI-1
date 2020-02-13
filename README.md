@@ -1,2 +1,2 @@
 # WDI
-zadania wdi 2019/2020
+zebranie i rozwiązane zadania z wdi ( semestr I informatyka WIET 2019/2020)
