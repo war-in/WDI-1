@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+
+bool czy_zlozona(int a)
+{
+	if (a == 0 || a == 1) return false;
+	for (int i = 2; i * i <= a; i++)
+	{
+		if (a % i == 0) return true;
+	} 
+	return false;
+}
+void ciagi_binarne(int& ile, int A, int B, int liczba = 1)
+{
+	cout << A << " " << B << " " <<liczba<<endl;
+	if (A == 0 && B == 0)
+	{
+		cout << " a" << endl;
+		if (czy_zlozona(liczba))
+		{
+			cout << "abc" << endl;
+			ile++;
+			cout << ile << endl;
+		}
+	}
+	else
+	{
+		if (A != 0 &&  B!= 0)
+		{
+			ciagi_binarne(ile, A - 1, B, liczba * 2 + 1);
+			ciagi_binarne(ile, A, B - 1, liczba * 2);
+		}
+		if(A==0)
+			ciagi_binarne(ile, A, B - 1, liczba * 2);
+		if(B==0)
+			ciagi_binarne(ile, A - 1, B, liczba * 2 + 1);
+	}
+}

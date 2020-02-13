@@ -1,0 +1,47 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+int odwracanie(int liczba)
+{
+	int nowa=0;
+	while (liczba != 0)
+	{
+		nowa = nowa * 10 + liczba % 10;
+		liczba /= 10;
+	}
+	return nowa;
+}
+bool budowanie(int wynik, int pierwsza, int druga)
+{
+	if (pierwsza == 0 && druga == 0)
+	{
+		cout << wynik << endl;
+		return true;
+	}
+	if (pierwsza == 0 &&druga!=0)
+	{
+		int nowy = wynik * 10 + druga % 10;
+		return budowanie(nowy, pierwsza, druga / 10);
+	}
+	if (druga == 0 && pierwsza != 0)
+	{
+		int nowy = wynik * 10 + pierwsza % 10;
+		return budowanie(nowy, pierwsza / 10, druga);
+	}
+	else
+	{
+		return budowanie(wynik * 10 + pierwsza % 10, pierwsza / 10, druga ) &&
+		budowanie(wynik * 10 + druga % 10, pierwsza, druga / 10);
+
+	}
+}
+void raper_budowanie(int liczba1, int liczba2)
+{
+	int odwr1 = odwracanie(liczba1);
+	int odwr2 = odwracanie(liczba2);
+	budowanie(0, odwr1, odwr2);
+}

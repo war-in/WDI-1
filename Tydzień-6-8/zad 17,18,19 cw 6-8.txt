@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+bool czy_krol_moze(int t[8][8], int i, int w, int k, int &nw, int &nk)
+{
+	int dx[8] = { 1,1,0,-1,-1,-1,0,1 };
+	int dy[8] = { 0,1,1,1,0,-1,-1,-1 };
+	nw = w + dy[i];
+	nk = k + dx[i];
+	bool flaga = false;
+	int pom = t[nw][nk];
+	while (pom / 10 != 0)
+	{
+		pom /= 10;
+	}
+	if (t[w][k] % 10 < pom) flaga = true;
+	return nw >= 0 && nw < 8 && nk >= 0 && nk < 8 && flaga;
+}
+void czy_krol(bool &flaga,int t[8][8], int w, int k,string wynik="")
+{
+	if (w == 7 && k == 7)
+	{
+		cout << wynik;
+		flaga = 1;
+		return;
+	}
+	if (w == 0 && k == 0)
+	{
+		cout << wynik;
+		flaga = 1;
+		return;
+	}
+	if (w == 7 && k == 0)
+	{
+		cout << wynik;
+		flaga = 1;
+		return;
+	}
+	if (w == 0 && k == 7)
+	{
+		cout << wynik;
+		flaga = 1;
+		return;
+	}
+	else
+	{
+		int i;
+		for ( i = 0; i < 8; i++)
+		{
+				//cout << i << endl;
+				//cout << w << " " << k << endl;
+				int nw = 0, nk = 0;
+				if (czy_krol_moze(t, i, w, k, nw, nk))
+				{
+					czy_krol(flaga,t, nw, nk,wynik+","+to_string(i));
+				}
+		}
+		
+	}
+	return ;
+}

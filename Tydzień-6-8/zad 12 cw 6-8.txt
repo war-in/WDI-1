@@ -1,0 +1,22 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+
+void wypisywanie_podzialow(int liczba, int iterator = 1, string wynik="")
+{
+	if (liczba==0)
+	{
+		cout << wynik << endl;
+	}
+	else
+	{
+		for (int i = iterator; i <= liczba; i++)
+		{
+			wypisywanie_podzialow(liczba - i, i, wynik + "+" + to_string(i));
+		}
+	}
+}

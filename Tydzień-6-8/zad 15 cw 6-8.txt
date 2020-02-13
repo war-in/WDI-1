@@ -1,0 +1,82 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+int waga_wyrazu(string wyraz)
+{
+	int dlugosc = wyraz.length();
+	int suma = 0;
+	for (int i = 0; i < dlugosc; i++)
+	{
+		int waga = wyraz[i];
+		suma += waga;
+	}
+	return suma;
+}
+int ile_samoglosek(string wyraz)
+{
+	char t[8] = { 'a','ą','e','ę','i','o','u','y' };
+	int ile = 0;
+	int dlugosc = wyraz.length();
+	for (int i = 0; i < dlugosc; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (t[j] == wyraz[i])
+			{
+				ile++;
+				break;
+			}
+		}
+	}
+	return ile;
+}
+bool czy_samogloska(char wyraz)
+{
+	char t[8] = { 'a','ą','e','ę','i','o','u','y' };
+	for (int i = 0; i < 8; i++)
+	{
+		if (t[i] == wyraz) return true;
+	}
+	return false;
+}
+bool wyraz(int waga1, int samogloski1, string wyraz2, int dlugosc, string wynik="", int i = 0)
+{
+	if (i == dlugosc)
+	{
+		if (waga1 == 0)
+		{
+			if (samogloski1 == 0)
+			{
+				cout << wynik<<endl;
+				return true;
+			}
+		}
+		return false;
+	}
+	else
+	{
+		int waga_act = wyraz2[i];
+		if (czy_samogloska(wyraz2[i]))
+		{
+			return wyraz(waga1 - waga_act, samogloski1 - 1, wyraz2, dlugosc, wynik + wyraz2[i], i + 1) ||
+				wyraz(waga1, samogloski1, wyraz2, dlugosc, wynik, i + 1);
+		}
+		else
+		{
+			return wyraz(waga1 - waga_act, samogloski1, wyraz2, dlugosc, wynik + wyraz2[i], i + 1) ||
+				wyraz(waga1, samogloski1, wyraz2, dlugosc, wynik, i + 1);
+		}
+
+	}
+}
+void raper_wyraz(string wyraz1, string wyraz2)
+{
+	int dlugosc = wyraz2.length();
+	int waga = waga_wyrazu(wyraz1);
+	int ile = ile_samoglosek(wyraz1);
+	cout<<wyraz(waga, ile, wyraz2, dlugosc);
+}

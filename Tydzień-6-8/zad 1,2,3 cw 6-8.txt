@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+bool odwazniki(int t[N], int x, int p = 0)
+{
+	if (x == 0) return true;
+	if (p == N) return false;
+
+	return odwazniki(t, x - t[p], p + 1) ||
+		   odwazniki(t, x, p + 1) ||
+		   odwazniki(t, x + t[p], p + 1);  
+} 
+void wypisz_string(int t[N], string wynik)
+{
+	int dlugosc =wynik.length();
+	int i = 0;
+	while (i < dlugosc)
+	{
+		if (wynik[i] == 'l') cout << t[i] << endl;
+		if (wynik[i] == 'p') cout << "    " << t[i] << endl;
+		i++;
+	}
+}
+bool odwazniki_wypisz(int t[N], int x, string wynik="", int p = 0)
+{
+	if (x == 0)
+	{
+		wypisz_string(t, wynik);
+		return true;
+	}
+	if (p == N) return false;
+
+	return odwazniki_wypisz(t, x - t[p], wynik + 'l', p + 1) ||
+		   odwazniki_wypisz(t, x, wynik+'o', p + 1) ||
+		   odwazniki_wypisz(t, x + t[p], wynik + 'p', p + 1);
+}

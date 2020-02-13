@@ -1,0 +1,52 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+bool moge(int t[10], int act_poz, int iterator)
+{
+	int bufor = t[act_poz];
+	int liczba = bufor;
+	if (bufor == 1 || bufor == 0) return false;
+	for (int i = 2; i  <= bufor; i++)
+	{
+		while (liczba % i == 0)
+		{
+			if (iterator == i)
+			{
+				if (act_poz + iterator < 10) return true;
+			}
+			if (liczba == 1) break;
+			liczba /= i;
+		}
+	}
+	return false;
+}
+void dotrzec(int t[10], bool& flaga,int &zwrot, int skoki=0, int act_poz = 0, int iterator = 1)
+{
+	cout << act_poz << " "<<iterator<<" " <<zwrot<< endl;
+	if (iterator == 10)
+	{
+		if (act_poz == 9)
+		{
+			if (flaga == false)
+			{
+				zwrot = skoki;
+				flaga = true;
+			}
+			return;
+		}
+	}
+	
+	else
+	{
+		if (moge(t, act_poz, iterator))
+		{
+			 dotrzec(t, flaga, zwrot, skoki + 1, act_poz + iterator, iterator + 1);
+			 dotrzec(t,flaga,zwrot, skoki, act_poz, iterator + 1);
+		}
+		dotrzec(t,flaga,zwrot, skoki, act_poz, iterator + 1);
+	}
+}

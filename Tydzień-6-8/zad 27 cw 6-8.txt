@@ -1,0 +1,69 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+struct kwadrat {
+	int x1, x2, y1, y2;
+};
+bool czy_przecinaja(kwadrat a, kwadrat b)
+{
+	if (a.x1 <= b.x1 && a.x2>=b.x1)
+	{
+		if (a.y1 <= b.y1 && a.y2 >= b.y1)
+			return true;
+		if (b.y1 <= a.y1 && b.y2 >= a.y1)
+			return true;
+	}
+	if (b.x1 <= a.x1 && b.x2 >= a.x1)
+	{
+		if (a.y1 <= b.y1 && a.y2 >= b.y1)
+			return true;
+		if (b.y1 <= a.y1 && b.y2 >= a.y1)
+			return true;
+	}
+	return false;
+}
+int pole_kwadratu(kwadrat a)
+{
+	return (a.x2 - a.x1) * (a.y2 - a.y1);
+}
+void kwadraty(bool &flaga,kwadrat t[N], bool wziete[N], int pole, int p=0, int ile=0)
+{
+	if (pole < 0) return;
+	if (p == N)
+	{
+		if (pole == 0)
+		{
+			flaga = true;
+			return;
+		}
+	}
+	else
+	{
+		bool cos = false;
+		for (int i = 0, licznik = 1; licznik <= ile && i!=p; i++)
+		{
+			if (wziete[i])
+			{
+				licznik++;
+				if (czy_przecinaja(t[i], t[p]))
+				{
+					cos = true;
+					kwadraty(flaga,t, wziete, pole, p+1, ile);
+				}
+			}
+		}
+		if (cos == false)
+		{
+			wziete[p] = true;
+			int pole_k = pole_kwadratu(t[p]);
+			kwadraty(flaga, t, wziete, pole - pole_k, p + 1, ile + 1);
+		}
+		wziete[p] = false;
+		kwadraty(flaga,t, wziete, pole, p + 1, ile);
+		return;
+	}
+}

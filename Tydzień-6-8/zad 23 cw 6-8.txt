@@ -1,0 +1,38 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+struct punkt {
+	int x, y;
+};
+int odl(int sumax1, int sumay1, int ilosc1, int sumax2, int sumay2, int ilosc2)
+{
+	int x1 = sumax1 / ilosc1;
+	int y1 = sumay1 / ilosc1;
+	int x2 = sumax2 / ilosc2;
+	int y2 = sumay2 / ilosc2;
+	double pom = pow(abs(x1 - x2), 2) + pow(abs(y1 - y2),2);
+	int odl = sqrt(pom);
+	return odl;
+}
+void ciezkosc(punkt t[N], int& min_odl, int sumax1 = 0, int sumay1 = 0, int ilosc1 = 0, int sumax2 = 0, int sumay2 = 0, int ilosc2 = 0, int p = 0)
+{
+	if (p == N)
+	{
+		if (ilosc1 != 0 && ilosc2 != 0)
+		{
+			int odleglosc = odl(sumax1, sumay1, ilosc1, sumax2, sumay2, ilosc2);
+			if (odleglosc < min_odl)
+				min_odl = odleglosc;
+		}
+	}
+	else
+	{
+		ciezkosc(t, min_odl, sumax1 + t[p].x, sumay1 + t[p].y, ilosc1 + 1, sumax2, sumay2, ilosc2, p + 1);
+		ciezkosc(t, min_odl, sumax1, sumay1, ilosc1, sumax2 + t[p].x, sumay2 + t[p].y, ilosc2+1, p + 1);
+		ciezkosc(t, min_odl, sumax1, sumay1, ilosc1, sumax2, sumay2, ilosc2, p + 1);
+	}
+}

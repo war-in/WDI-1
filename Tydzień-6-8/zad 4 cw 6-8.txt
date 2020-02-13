@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+int waga_liczby(int a)
+{
+	int waga = 0;
+	bool czy_byl = false;
+	if (a == 0) return 0;
+	int bufor = a;
+	for (int i = 2; a != 1; i++)
+	{
+		while (a % i == 0)
+		{
+			if (czy_byl == false)
+			{
+				waga++;
+				czy_byl = true;
+			}
+			a /= i;
+		}
+		czy_byl = false;
+	}
+	return waga;
+}
+bool podzial_wagi(int t[N], int waga1 = 0, int waga2 = 0, int waga3 = 0, int p = 0)
+{
+	if (p == N)
+	{
+		if (waga1 == waga2 && waga2 == waga3) return true;
+		return false;
+	}
+	int waga = waga_liczby(t[p]);
+
+	return podzial_wagi(t, waga1 + waga, waga2, waga3, p + 1) ||
+		   podzial_wagi(t, waga1, waga2 + waga, waga3, p + 1) ||
+		   podzial_wagi(t, waga1, waga2, waga3 + waga, p + 1);
+}

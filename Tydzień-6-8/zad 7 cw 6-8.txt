@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+void podzbior(int& wynik, int t[N], bool &flaga, int sumel = 0, int sumin = 0, int p = 0)
+{
+	if (p == N)
+	{
+		if (sumin == sumel)
+		{
+			if (flaga == false)
+			{
+				flaga = true;
+				wynik = sumin;
+			}
+		}
+	}
+	else
+	{
+			podzbior(wynik, t,flaga, sumel + t[p], sumin + p, p + 1);
+			podzbior(wynik, t,flaga, sumel, sumin, p + 1);
+	}
+
+}
+int podzbior_raper(int t[N])
+{
+	bool flaga=false;
+	int wynik = 0;
+	podzbior(wynik, t,flaga);
+	return wynik;
+}

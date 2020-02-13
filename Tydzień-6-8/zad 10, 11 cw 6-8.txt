@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+void wypisz_wynik(int t[N],string wynik)
+{
+	int dlugosc = wynik.length();
+	for (int i = 0; i < dlugosc; i++)
+	{
+		if (wynik[i] == 'a') cout << t[i] << " ";
+	}
+	cout << endl;
+}
+void n_ki(int &liczba_nek, int t[N], int ile, int iloczyn, int act_iloczyn = 1, int act_ile = 0, int p = 0,string wynik="")
+{
+	if (p == N)
+	{
+		if (act_ile == ile)
+		{
+			if (act_iloczyn == iloczyn)
+			{
+				liczba_nek++;
+				wypisz_wynik(t,wynik);
+				wynik = "";
+			}
+		}
+	}
+	else
+	{
+		n_ki(liczba_nek, t, ile, iloczyn, act_iloczyn * t[p], act_ile + 1, p + 1,wynik+'a');
+		n_ki(liczba_nek, t, ile, iloczyn, act_iloczyn, act_ile, p + 1,wynik+'o');
+	}
+}
+int raper_n_ki(int t[N],int ile, int iloczyn)
+{
+	int liczba_nek = 0;
+	n_ki(liczba_nek, t, ile, iloczyn);
+	return liczba_nek;
+}

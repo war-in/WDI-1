@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+bool czy_pierwsza(int a)
+{
+	if (a == 1 || a==0) return false;
+	int bufor = a;
+	for (int i = 2; i*i<=bufor&&a!=1; i++)
+	{
+		if (a % i == 0) return false;
+		//a /= i;
+	}
+	return true;
+}
+bool pociecie(int t[N], int liczba = 0, int dlugosc = 0, int p = 0)
+{
+	if (dlugosc == 31) return false;
+	if (p == N)
+	{
+		if (czy_pierwsza(liczba)) return true;
+		return false;
+	}
+	else
+	{
+		if (czy_pierwsza(liczba))
+		{
+			return pociecie(t, 0, 0, p) ||
+				   pociecie(t, liczba * 2 + t[p], dlugosc + 1, p + 1);
+		}
+		else
+		{
+			return  pociecie(t, liczba * 2 + t[p], dlugosc + 1, p + 1);
+		}
+	}
+}

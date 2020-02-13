@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+#include <time.h>
+using namespace std;
+const int N = 4;
+
+bool czy_mozliwy_skok(int t[N][N], int i, int w, int k, int &nw, int &nk)
+{
+	int dx[8] = { 1,2,2,1,-1,-2,-2,-1 };
+	int dy[8] = { -2,-1,1,2,2,1,-1,-2 };
+	nk = k + dx[i];
+	nw = w + dy[i];
+
+	return nk >= 0 && nw >= 0 && nk < N && nw < N && t[nw][nk] == 0;
+}
+void wypisz(int t[N][N])
+{
+	for (int w = 0; w < N; w++)
+	{
+		for (int k = 0; k < N; k++)
+		{
+			cout << t[w][k] << "  ";
+		}
+		cout << endl;
+	}
+}
+void skoczek(int t[N][N], int w = 0, int k = 0, int n = 1)
+{
+	t[w][k] = n;
+	if (n == N * N)
+	{
+		wypisz(t);
+		cout << endl;
+	}
+	else
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			int nw = 0, nk = 0;
+			if (czy_mozliwy_skok(t, i, w, k, nw, nk))
+				skoczek(t, nw, nk, n + 1);
+		}
+	}
+	t[w][k] = 0;
+}
