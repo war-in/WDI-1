@@ -1,0 +1,14 @@
+wejscie=int(input())
+pocz=0
+kon=wejscie
+wynik=(pocz+kon)/2
+
+while abs(wynik**wynik - wejscie) > 0.0001:
+    if wynik**wynik > wejscie:
+        kon=wynik
+        wynik=(pocz+kon)/2
+    else:
+        pocz=wynik
+        wynik = (pocz + kon) / 2
+
+print(wynik)

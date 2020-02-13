@@ -1,0 +1,13 @@
+x = int(input())
+licznik = 0
+liczba = 1
+suma = 0
+while suma < x:
+    licznik += 1
+    suma += liczba
+    liczba += 2
+
+if x == 1:
+    print(licznik)
+else:
+    print(licznik-1)
