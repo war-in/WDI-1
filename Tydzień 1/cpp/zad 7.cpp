@@ -9,7 +9,7 @@ int fib = 1, fib_prew = 0, liczba, iloczyn;
 int main()
 {
 	cin >> liczba;
-	while (fib <= liczba)
+	while (fib*fib_prew <= liczba)
 	{
 		iloczyn = fib * fib_prew;
 		if (iloczyn == liczba)
