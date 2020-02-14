@@ -1,0 +1,48 @@
+
+#include <iostream>
+
+using namespace std;
+const int MAX=15;
+int tab[MAX][MAX];
+void spirala(int tab[MAX][MAX])
+{
+	int wsadzacz = 1;
+	for (int licznik = 0; licznik <= MAX / 2; licznik++)
+	{
+		for (int j = licznik; j < MAX - licznik; j++)
+		{
+			tab[licznik][j] = wsadzacz;
+			wsadzacz++;
+		}
+		for (int j = licznik+1; j < MAX - licznik; j++)
+		{
+			tab[j][MAX-licznik-1] = wsadzacz;
+			wsadzacz++;
+		}
+		for (int j = MAX- licznik-2; j >= licznik; j--)
+		{
+			tab[MAX-licznik-1][j] = wsadzacz;
+			wsadzacz++;
+		}
+		for (int j =MAX- licznik-2; j > licznik; j--)
+		{
+			tab[j][licznik] = wsadzacz;
+			wsadzacz++;
+		}
+	}
+}
+int main()
+{
+	spirala(tab);
+	for (int w = 0, k = 0; w < MAX; w++)
+	{
+		while (k < MAX)
+		{
+			cout << tab[w][k] << " ";
+			k++;
+		}
+		k = 0;
+		cout << endl;
+	}
+	return 0;
+}

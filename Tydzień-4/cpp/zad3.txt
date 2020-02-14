@@ -1,0 +1,38 @@
+
+
+#include <iostream>
+using namespace std;
+const int MAX=3;
+int tab[MAX][MAX] = {
+	{1,4,6},
+	{123,2,2},
+	{1,4,2} };
+int k;
+int sprawdz(int tab[MAX][MAX])
+{
+	for (int w = 0, k = 0; w < MAX; k++)
+	{
+		while (tab[w][k] != 0)
+		{
+			if (tab[w][k] % 2 == 0)
+				break;
+			tab[w][k] /= 10;
+		}
+		if (tab[w][k] == 0)
+		{
+			w++;
+			k = -1;
+		}
+		if (k == MAX - 1)
+		{
+			cout << "TAK";
+			return 0;
+		}
+	}
+		cout << "NIE";
+		return 0;
+}
+int main()
+{
+	sprawdz( tab ) ;
+}

@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+const int MAX = 5;
+int tab[MAX][MAX] = { {-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1} };
+int main()
+{
+	int sumawM=-100, sumakM=-100;
+	for (int w = 0; w < MAX ; w++)
+	{
+		int last = 0;
+		int sumaw = 0;
+		int sumak = 0;
+		for (int k = 0; k < MAX ; k++)
+		{
+			if (k - last == 3)
+			{
+				sumak -= tab[last][w];
+				sumaw -= tab[w][last];
+				last++;
+			}
+			sumaw += tab[w][k];
+			sumak += tab[k][w];
+			if (sumaw > sumawM)
+				sumawM = sumaw;
+			if (sumak > sumakM)
+				sumakM = sumak;
+		}
+	}
+	cout << sumawM << " " << sumakM;
+	return 0;
+}

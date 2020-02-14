@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+const int MAX=5;
+int tab[MAX][MAX] = { {2,2,2,2,2},{2,2,2,2,2},{2,2,2,2,2},{2,2,2,2,2},{2,2,2,2,3} };
+bool pom[MAX][MAX] = {};
+int main()
+{
+	for (int w = 0; w < MAX; w++)
+	{
+		for (int k = 0; k < MAX; k++)
+		{
+			if (pom[w][k] == 0)
+			{
+				for (int i = 0; i < MAX && pom[w][k] == 0; i++)
+				{
+					for (int j = 0; j < MAX; j++)
+					{
+						if (tab[i][j] != 0)
+						{
+							int suma = tab[w][k] + tab[i][j];
+							bool cos = 0;
+							for (int dzielnik = 2; dzielnik * dzielnik <= suma; dzielnik++)
+							{
+								if (suma % dzielnik == 0)
+								{
+									cos = 1;
+									break;
+								}
+							}
+							if (cos == 0)
+							{
+								pom[w][k] = 1;
+								pom[i][j] = 1;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	for (int w = 0; w < MAX; w++)
+	{
+		for (int k = 0; k < MAX; k++)
+		{
+			cout << pom[w][k];
+		}
+		cout << endl;
+	}
+	return 0;
+}

@@ -1,0 +1,120 @@
+#include <iostream>
+using namespace std;
+const int MAX=5;
+int tab[MAX][MAX] = {
+	{1,8,22,4,4},
+	{31,3,86,19,18},
+	{15,6,17,8,96},
+	{11,16,75,13,100},
+	{49,5,11,2,5}
+};
+int main()
+{
+	long long sumaw1 = 0, sumaw2 = 0, sumak1 = 0, sumak2 = 0;
+	int w1=0, w2=0, k1=0, k2=0;
+	for (int w = 0; w < MAX; w++)
+	{
+		int sumaw = 0, sumak = 0,k;
+		for (k = 0; k < MAX; k++)
+		{
+			sumak += tab[k][w];                  //liczymy sume w wierszu i kolumnie
+			sumaw += tab[w][k];
+		}
+		k--;
+		if (sumaw > sumaw2)
+		{
+			sumaw2 = sumaw;
+			w2 = w;
+			if (sumaw >= sumaw1)
+			{
+				sumaw2 = sumaw1;              //zapisujemy dwie najwieksze sumy w wierszach
+				w2 = w1;
+				sumaw1 = sumaw;
+				w1 = w;
+			}
+		}
+		if (sumak > sumak2)
+		{
+			sumak2 = sumak;
+			k2 = w;
+			if (sumak >= sumak1)
+			{
+				sumak2 = sumak1;                   //zapisujemy dwie najwieksze sumy w kolumnach
+				k2 = k1; 
+				sumak1 = sumak;
+				k1 = w;
+			}
+		}
+	}
+	if (sumaw2 + sumaw1 > sumak1 + sumak2)         // jesli suma sum w wierszach jest jest wieksza niz ta w kolumnach to:
+	{
+		sumak1 = 0;
+		sumak2 = 0;
+		k1 = 0;                                     //zerujemy wszystkie parametry zwiazane z sumami w kolumnach
+		k2 = 0;
+		for (int k = 0; k < MAX; k++)
+		{
+			int suma = 0;
+			int w;
+			for ( w = 0; w < MAX; w++)
+			{
+				if (w != w1 && w != w2)            //obliczamy sume w kolumnach z pominieciem elementow z wierszy ktore juz sa wybrane
+					suma += tab[w][k];
+			}
+			w--;
+			if (suma >= sumak2)
+			{
+				sumak2 = suma;
+				k2 = k;
+				if (suma >= sumak1)
+				{
+					sumak2 = sumak1;               //zapisujemy dwie najwieksze takie sumy
+					k2 = k1;
+					sumak1 = suma;
+					k1 = k;
+				}
+			}
+		}
+		if (tab[w1][k1] + tab[w2][k2] < tab[w2][k1] + tab[w1][k2])
+			cout << w1 << k1<< " " << w2 << k2;                               //sprawdzamy ktore z 4 punktow lezacych naprzeciwko siebie maja mniejsza sume i one sa rozwiazaniem 
+		else 
+			cout << w2 << k1<< " " << w1 << k2;
+	}
+	else
+	{
+		sumaw1 = 0;                                         //druga czesc ifa analogiczna do pierwszej tylko gdy suma sum w kolumnach jest wieksza
+		sumaw2 = 0;
+		w1 = 0;
+		w2 = 0;
+		for (int w = 0; w < MAX; w++)
+		{
+			int suma = 0;
+			int k;
+			for (k = 0; k < MAX; k++)
+			{
+				if (k != k1 && k != k2)
+				{
+					suma += tab[w][k];
+				}
+			}
+			k--;
+			if (suma >= sumaw2)
+			{
+				sumaw2 = suma;
+				w2 = w;
+				if (suma >= sumaw1)
+				{
+					sumaw2 = sumaw1;
+					w2 = w1;
+					sumaw1 = suma;
+					w1 = w;
+				}
+			}
+		}
+		if (tab[w1][k1] + tab[w2][k2] < tab[w2][k1] + tab[w1][k2])
+			cout << w1 << k1 << " " << w2 << k2;
+		else
+			cout << w2 << k1 << " " << w1 << k2;
+	}
+	return 0;
+}

@@ -1,0 +1,54 @@
+#include <iostream>
+
+using namespace std;
+const int MAX=3;
+int main()
+{
+	int tab[MAX][MAX] = { {-8,13,-10},{12,1,-13},{18,-10,4} };
+	int suma = 0, liczuj = 0, kuj, liczdod = 0, kdod, mianuj = -2000000, wuj, miandod = 2000000, wdod;
+	for (int w = 0, k = 0; k < MAX; k++)
+	{
+		while (w < MAX)
+		{
+			suma += tab[w][k];
+			w++;
+		}
+		if (suma < 0 && suma < liczuj)
+		{
+			liczuj = suma;
+			kuj = k;
+		}
+		if (suma > 0 && suma > liczdod)
+		{
+			liczdod = suma;
+			kdod = k;
+		}
+		suma = 0;
+		w = 0;
+	}
+	for (int w = 0, k = 0; w < MAX; w++)
+	{
+		while (k < MAX)
+		{
+			suma += tab[w][k];
+			k++;
+		}
+		if (suma < 0 && suma > mianuj)
+		{
+			mianuj = suma;
+			wuj = w;
+		}
+		if (suma > 0 && suma < miandod)
+		{
+			miandod = suma;
+			wdod = w;
+		}
+		suma = 0;
+		k = 0;
+	}
+	if (liczuj / mianuj > liczdod / miandod)
+		cout << "wiersz " <<wuj<< " kolumna "<< kuj;
+	else
+		cout << "wiersz " << wdod << " kolumna " << kdod;
+	return 0;
+}

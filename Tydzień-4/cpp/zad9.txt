@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+const int MAX = 7;
+int licznik = 1;
+int tab[MAX][MAX] = { {2,2,2,2,2,2,1},{2,2,2,2,2,2,2},{2,2,2,2,2,2,2}, {2,2,2,2,2,2,2},{2,2,2,2,2,2,2},{2,2,2,2,2,2,2},{1,2,2,2,2,2,1}, };
+int main()
+{
+	int N;
+	cin >> N;
+    while(licznik <= MAX/2)
+	{
+		for (int w = licznik; w < MAX - licznik; w++)
+		{
+			for (int k = licznik; k < MAX - licznik; k++)
+			{
+				long iloczyn = tab[w - licznik][k - licznik] * tab[w - licznik][k + licznik] * tab[w + licznik][k - licznik] * tab[w + licznik][k + licznik];
+				if (iloczyn == N)
+				{
+					cout << w << " " << k;
+					return 0;
+				}
+			}
+		}
+		licznik++;
+	}
+	cout << "brak";
+	return 0;
+}

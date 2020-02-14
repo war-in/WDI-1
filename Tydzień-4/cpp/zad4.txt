@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+const int MAX=3;
+int tab[MAX][MAX] = { {105,309,11},{59,86,302},{200,1,70} };
+void sprawdzanie(int tab[MAX][MAX])
+{
+	int suma, sumk=0, sumw=INT_MAX, ik, iw;
+	for (int k = 0; k < MAX; k++)
+	{
+		suma = 0;
+		for (int w = 0; w < MAX; w++) suma += tab[w][k];
+		if (sumk < suma)
+		{
+			sumk = suma;
+			ik = k;
+		}
+	}
+	for (int w = 0; w < MAX; w++)
+	{
+		suma = 0;
+		for (int k = 0; k < MAX; k++) suma += tab[w][k];
+		if (sumw > suma)
+		{
+			sumw = suma;
+			iw = w;
+		}
+	}
+	cout << "wiersz " << iw << " kolumna " << ik;
+}
+int main()
+{
+	sprawdzanie(tab);
+	return 0;
+}

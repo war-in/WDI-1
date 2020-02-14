@@ -1,0 +1,41 @@
+#include <iostream>
+
+using namespace std;
+
+const int MAX = 3;
+int t[MAX][MAX] = { 
+	{13,12,16},
+	{18,19,14},
+	{12,21,251} 
+	};
+int sprawdz(int t[MAX][MAX])
+{
+	for (int i = 0, k = 0; i < MAX; k++)
+	{
+		while (t[i][k] != 0)
+		{
+			if (t[i][k] % 2 == 1)
+				t[i][k] /= 10;
+			else
+				break;
+		}
+		if (t[i][k] == 0)
+		{
+			i++;
+			k = -1;
+		}
+		if (k == MAX - 1)
+		{
+			 cout << "NIE";
+			 return 0;
+		}
+	}
+	 cout << "TAK";
+	 return 0;
+	 
+}
+int main()
+{
+	 sprawdz (t);
+	
+}
